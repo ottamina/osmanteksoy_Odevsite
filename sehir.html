@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rize şehri tanıtım sayfası - Doğal güzellikleri ve Karadeniz yaylaları">
+    <title>Şehrim - Rize | Kişisel Portfolyo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-code"></i> Portfolyom
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home"></i> Hakkımda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="cv.html"><i class="fas fa-file-alt"></i> Özgeçmiş</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="sehir.html"><i class="fas fa-city"></i> Şehir</a></li>
+                    <li class="nav-item"><a class="nav-link" href="miras.html"><i class="fas fa-futbol"></i> Takımım</a></li>
+                    <li class="nav-item"><a class="nav-link" href="api.html"><i class="fas fa-film"></i> Filmler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="iletisim.html"><i class="fas fa-envelope"></i> İletişim</a></li>
+                </ul>
+                <div class="nav-user-info ms-3" id="navUserInfo"></div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- sayfa header -->
+    <header class="page-header page-header-city">
+        <div class="container">
+            <h1><i class="fas fa-city"></i> Rize</h1>
+            <p>Doğanın yağmurla buluştuğu şehir</p>
+        </div>
+    </header>
+
+    <!-- sehirinfo -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="row g-4 align-items-center">
+                <div class="col-lg-6">
+                    <div class="city-info-text">
+                        <h2>Rize Hakkında</h2>
+                        <p>
+                            Rize, Doğu Karadeniz Bölgesi'nde yer alan, çay bahçeleri, yaylaları ve tarihi dokusuyla 
+                            tanınan bir ildir. Yeşilin her tonunu barındıran kıyı kesimi ve yüksek platolarıyla 
+                            doğa tutkunlarının favori rotalarındandır.
+                        </p>
+                        <p>
+                            Rize, Fırtına Vadisi, Ayder Yaylası ve Kaçkar Dağları gibi doğal ve kültürel değerleriyle 
+                            her mevsim ziyaretçi çeker. Bölge, özellikle yürüyüş ve doğa turizmi için önemli bir merkezdir.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="city-stats">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <i class="fas fa-users"></i>
+                                    <h3>350.506</h3>
+                                    <p>Nüfus</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <i class="fas fa-map"></i>
+                                    <h3>3.920 km²</h3>
+                                    <p>Yüzölçümü</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <i class="fas fa-building"></i>
+                                    <h3>12</h3>
+                                    <p>İlçe</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="stat-card">
+                                    <i class="fas fa-mountain"></i>
+                                    <h3>53</h3>
+                                    <p>Plaka Kodu</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Slider -->
+    <section class="section-padding section-alt">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Galeri</span>
+                <h2 class="section-title">Rize'den Görüntüler</h2>
+
+            <div class="city-slider" id="citySlider">
+                <div class="slider-container">
+                    <div class="slider-track" id="sliderTrack">
+                        <div class="slider-slide active">
+                            <div class="slide-content">
+                                <div class="slide-overlay">
+                                    <img src="assets/ayder.jpg" alt="Ayder Yaylası" class="slide-image">
+                                    <h3>Ayder Yaylası</h3>
+                                    <p>Karadeniz'in en ünlü yaylalarından biri olan Ayder, ahşap evleri, kaplıcaları ve yemyeşil doğasıyla tanınır.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="slide-content">
+                                <div class="slide-overlay">
+                                    <img src="assets/firtina.jpg" alt="Fırtına Vadisi" class="slide-image">
+                                    <h3>Fırtına Vadisi</h3>
+                                    <p>Rize'nin en etkileyici doğa rotalarından biri olan Fırtına Vadisi, nehirleri, taş köprüleri ve trekking parkurlarıyla bilinir.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="slide-content">
+                                <div class="slide-overlay">
+                                    <img src="assets/kalemerkez.jpg" alt="Rize Kalesi" class="slide-image">
+                                    <h3>Rize Kalesi</h3>
+                                    <p>Şehrin tarihî simgelerinden biri olan Rize Kalesi, Karadeniz kıyısında harika manzaralar sunar.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="slide-content">
+                                <div class="slide-overlay">
+                                    <img src="assets/zilakle.jpg" alt="Zilkale" class="slide-image">
+                                    <h3>Zilkale</h3>
+                                    <p>Fırtına Vadisi'nin içinde yer alan Zilkale, tarihi kale kalıntıları ve vadinin eşsiz manzarasıyla ziyaretçilerini bekler.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn slider-prev" id="sliderPrev" aria-label="Önceki">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="slider-dots" id="sliderDots">
+                        <span class="slider-dot active" data-index="0"></span>
+                        <span class="slider-dot" data-index="1"></span>
+                        <span class="slider-dot" data-index="2"></span>
+                        <span class="slider-dot" data-index="3"></span>
+                    </div>
+                    <button class="slider-btn slider-next" id="sliderNext" aria-label="Sonraki">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Places to Visit -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-tag">Keşfet</span>
+                <h2 class="section-title">Gezilecek Yerler</h2>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3">
+                    <div class="place-card">
+                        <div class="place-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h4>Çay Bahçeleri</h4>
+                        <p>Rize'nin simgesi olan yemyeşil çay plantasyonları, doğa yürüyüşleri ve çay fabrikası ziyaretleri için ideal.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="place-card">
+                        <div class="place-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">
+                            <i class="fas fa-monument"></i>
+                        </div>
+                        <h4>Zilkale</h4>
+                        <p>Fırtına Vadisi'nin içinde yer alan Zilkale, tarihi kale kalıntıları ve vadinin eşsiz manzarasıyla ziyaretçilerini bekler.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="place-card">
+                        <div class="place-icon" style="background: linear-gradient(135deg, #a855f7, #9333ea);">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <h4>Kaçkar Dağları</h4>
+                        <p>Doğa yürüyüşü ve dağcılık için mükemmel olan Kaçkar Dağları, Karadeniz'in en yüksek zirvelerini barındırır.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <div class="place-card">
+                        <div class="place-icon" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h4>Çamlıhemşin</h4>
+                        <p>Geleneksel ahşap evleri, şelaleleri ve yaylalarıyla ünlü olan bu köy, Karadeniz kültürünü yansıtır.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p>&copy; 2025 Kişisel Portfolyo. Tüm hakları saklıdır.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>Web Teknolojileri Dersi Projesi - Karadeniz Teknik Üniversitesi</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="site.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+            initNavbar();
+            initSlider();
+        });
+    </script>
+</body>
+</html>
