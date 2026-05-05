@@ -238,7 +238,7 @@ function resetForm() {
 }
 
 /* ========== MOVIES API ========== */
-const TMDB_KEY = 'b0e261c6b9a1da399e07e03a75e06e64';
+const TMDB_KEY = 'a16c31fb21f5c538dc463e7598cfd387';
 const TMDB_BASE = 'https://api.themoviedb.org/3';
 const TMDB_IMG = 'https://image.tmdb.org/t/p/w500';
 let moviePage = 1;
