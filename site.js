@@ -1,3 +1,72 @@
+/* ========== LOGIN ========== */
+function initLogin() {
+    const form = document.getElementById('loginForm');
+    const toggleBtn = document.getElementById('togglePassword');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            const inp = document.getElementById('loginPassword');
+            const icon = toggleBtn.querySelector('i');
+            if (inp.type === 'password') { inp.type = 'text'; icon.className = 'fas fa-eye-slash'; }
+            else { inp.type = 'password'; icon.className = 'fas fa-eye'; }
+        });
+    }
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value.trim();
+            const emailErr = document.getElementById('emailError');
+            const passErr = document.getElementById('passwordError');
+            let valid = true;
+            emailErr.textContent = ''; passErr.textContent = '';
+
+            const emailPattern = /^b\d{10}@ogr\.sakarya\.edu\.tr$/;
+            if (!email) { emailErr.textContent = 'E-posta boş bırakılamaz.'; valid = false; }
+            else if (!emailPattern.test(email)) { emailErr.textContent = 'Format: b2412100001@ogr.sakarya.edu.tr'; valid = false; }
+            if (!password) { passErr.textContent = 'Şifre boş bırakılamaz.'; valid = false; }
+
+            if (!valid) return;
+            const studentNo = email.split('@')[0];
+            if (password !== studentNo) { passErr.textContent = 'Şifre öğrenci numaranız olmalıdır.'; return; }
+
+            // Try PHP first, fallback to localStorage
+            const formData = new FormData(form);
+            fetch('login.php', { method: 'POST', body: formData })
+                .then(r => r.json())
+                .then(data => {
+                    if (data.success) {
+                        localStorage.setItem('loggedIn', 'true');
+                        localStorage.setItem('studentNo', studentNo);
+                        alert(data.message);
+                        window.location.href = 'index.html';
+                    } else { passErr.textContent = data.message; }
+                })
+                .catch(() => {
+                    localStorage.setItem('loggedIn', 'true');
+                    localStorage.setItem('studentNo', studentNo);
+                    alert('Hoşgeldiniz [' + studentNo + ']');
+                    window.location.href = 'index.html';
+                });
+        });
+    }
+}
+
+function checkLoginStatus() {
+    const loggedIn = localStorage.getItem('loggedIn');
+    const studentNo = localStorage.getItem('studentNo');
+    if (!loggedIn && !window.location.pathname.includes('login.html')) {
+        // Optional: redirect to login
+        // window.location.href = 'login.html';
+    }
+    const navInfo = document.getElementById('navUserInfo');
+    if (navInfo && studentNo) {
+        navInfo.innerHTML = '<i class="fas fa-user-circle"></i> ' + studentNo +
+            ' <a href="#" onclick="logout()" style="margin-left:8px;color:#ef4444;font-size:.8rem;"><i class="fas fa-sign-out-alt"></i></a>';
+    }
+}
+function logout() { localStorage.removeItem('loggedIn'); localStorage.removeItem('studentNo'); window.location.href = 'login.html'; }
+
+
 /* ========== LOGIN STATUS ========== */
 function checkLoginStatus() {
     // Placeholder so pages that call this function do not fail.
