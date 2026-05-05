@@ -236,3 +236,112 @@ function resetForm() {
     const urgency = document.getElementById('urgencyValue');
     if (urgency) urgency.textContent = '5';
 }
+
+/* ========== MOVIES API ========== */
+const TMDB_KEY = 'b0e261c6b9a1da399e07e03a75e06e64';
+const TMDB_BASE = 'https://api.themoviedb.org/3';
+const TMDB_IMG = 'https://image.tmdb.org/t/p/w500';
+let moviePage = 1;
+let currentQuery = '';
+
+function loadPopularMovies() {
+    moviePage = 1;
+    currentQuery = '';
+    fetchMovies(TMDB_BASE + '/movie/popular?api_key=' + TMDB_KEY + '&language=tr-TR&page=1');
+}
+
+function searchMovies() {
+    const q = document.getElementById('movieSearch')?.value.trim();
+    const genre = document.getElementById('genreFilter')?.value;
+    const sort = document.getElementById('sortFilter')?.value;
+    moviePage = 1;
+    document.getElementById('moviesGrid').innerHTML = '';
+
+    if (q) {
+        currentQuery = q;
+        fetchMovies(TMDB_BASE + '/search/movie?api_key=' + TMDB_KEY + '&language=tr-TR&query=' + encodeURIComponent(q) + '&page=1');
+    } else {
+        currentQuery = '';
+        let url = TMDB_BASE + '/discover/movie?api_key=' + TMDB_KEY + '&language=tr-TR&sort_by=' + sort + '&page=1';
+        if (genre) url += '&with_genres=' + genre;
+        fetchMovies(url);
+    }
+}
+
+function loadMoreMovies() {
+    moviePage++;
+    let url;
+    if (currentQuery) {
+        url = TMDB_BASE + '/search/movie?api_key=' + TMDB_KEY + '&language=tr-TR&query=' + encodeURIComponent(currentQuery) + '&page=' + moviePage;
+    } else {
+        const genre = document.getElementById('genreFilter')?.value;
+        const sort = document.getElementById('sortFilter')?.value || 'popularity.desc';
+        url = TMDB_BASE + '/discover/movie?api_key=' + TMDB_KEY + '&language=tr-TR&sort_by=' + sort + '&page=' + moviePage;
+        if (genre) url += '&with_genres=' + genre;
+    }
+    fetchMovies(url, true);
+}
+
+function fetchMovies(url, append = false) {
+    const grid = document.getElementById('moviesGrid');
+    const spinner = document.getElementById('loadingSpinner');
+    const loadMore = document.getElementById('loadMoreContainer');
+    if (!append) grid.innerHTML = '';
+    spinner.style.display = 'block';
+
+    fetch(url)
+        .then(r => r.json())
+        .then(data => {
+            spinner.style.display = 'none';
+            if (data.results && data.results.length) {
+                data.results.forEach(m => {
+                    const col = document.createElement('div');
+                    col.className = 'col-6 col-md-4 col-lg-3';
+                    const poster = m.poster_path ? TMDB_IMG + m.poster_path : '';
+                    const posterBg = poster ? 'background-image:url(' + poster + ');background-size:cover;background-position:center;' : 'background:var(--bg-card2);display:flex;align-items:center;justify-content:center;';
+                    col.innerHTML =
+                        '<div class="movie-card" onclick="showMovieDetail(' + m.id + ')">' +
+                        '<div class="movie-poster" style="' + posterBg + '">' +
+                        (!poster ? '<i class="fas fa-film" style="font-size:3rem;color:var(--text-muted)"></i>' : '') +
+                        '</div>' +
+                        '<div class="movie-info">' +
+                        '<div class="movie-title">' + (m.title || 'Bilinmiyor') + '</div>' +
+                        '<div class="movie-meta">' +
+                        '<span>' + (m.release_date ? m.release_date.substring(0, 4) : '-') + '</span>' +
+                        '<span class="movie-rating"><i class="fas fa-star"></i> ' + (m.vote_average ? m.vote_average.toFixed(1) : '-') + '</span>' +
+                        '</div></div></div>';
+                    grid.appendChild(col);
+                });
+                loadMore.style.display = data.page < data.total_pages ? 'block' : 'none';
+            } else if (!append) {
+                grid.innerHTML = '<div class="col-12 text-center py-5"><p class="text-muted">Film bulunamadı.</p></div>';
+                loadMore.style.display = 'none';
+            }
+        })
+        .catch(() => {
+            spinner.style.display = 'none';
+            if (!append) grid.innerHTML = '<div class="col-12 text-center py-5"><p style="color:var(--danger)">API bağlantı hatası.</p></div>';
+        });
+}
+
+function showMovieDetail(id) {
+    fetch(TMDB_BASE + '/movie/' + id + '?api_key=' + TMDB_KEY + '&language=tr-TR&append_to_response=credits')
+        .then(r => r.json())
+        .then(m => {
+            const body = document.getElementById('movieModalBody');
+            const backdrop = m.backdrop_path ? TMDB_IMG + m.backdrop_path : '';
+            const genres = m.genres ? m.genres.map(g => '<span class="badge bg-secondary me-1">' + g.name + '</span>').join('') : '';
+            const cast = m.credits && m.credits.cast ? m.credits.cast.slice(0, 6).map(c => c.name).join(', ') : 'Bilinmiyor';
+            body.innerHTML =
+                (backdrop ? '<div style="height:250px;background:url(' + backdrop + ') center/cover;border-radius:16px 16px 0 0;position:relative;"><div style="position:absolute;inset:0;background:linear-gradient(transparent,var(--bg-card));border-radius:16px 16px 0 0;"></div></div>' : '') +
+                '<div style="padding:24px;">' +
+                '<h3 style="font-weight:800;">' + (m.title || '') + '</h3>' +
+                '<p style="color:var(--text-muted);font-size:.85rem;">' + (m.release_date || '') + ' | ' + (m.runtime || '?') + ' dk</p>' +
+                '<div class="mb-3">' + genres + '</div>' +
+                '<p style="color:var(--text-muted);font-size:.9rem;">' + (m.overview || 'Açıklama yok.') + '</p>' +
+                '<p style="font-size:.85rem;"><strong>Oyuncular:</strong> <span style="color:var(--text-muted)">' + cast + '</span></p>' +
+                '<p style="font-size:.85rem;"><strong>Puan:</strong> <span style="color:var(--warning)"><i class="fas fa-star"></i> ' + (m.vote_average ? m.vote_average.toFixed(1) : '-') + '</span> (' + (m.vote_count || 0) + ' oy)</p>' +
+                '</div>';
+            new bootstrap.Modal(document.getElementById('movieModal')).show();
+        });
+}
