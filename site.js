@@ -138,6 +138,19 @@ function initContactForm() {
     if (range && val) {
         range.addEventListener('input', () => { val.textContent = range.value; });
     }
+    // Color input live preview
+    const colorInput = document.getElementById('contactColor');
+    const colorVal = document.getElementById('colorValue');
+    if (colorInput && colorVal) {
+        colorInput.addEventListener('input', () => { colorVal.textContent = colorInput.value; });
+    }
+    // Phone: only allow digits and + sign
+    const phoneInput = document.getElementById('contactPhone');
+    if (phoneInput) {
+        phoneInput.addEventListener('input', () => {
+            phoneInput.value = phoneInput.value.replace(/[^\d+\s]/g, '');
+        });
+    }
     // Enter key search on movie page
     const searchInput = document.getElementById('movieSearch');
     if (searchInput) searchInput.addEventListener('keypress', e => { if (e.key === 'Enter') searchMovies(); });
@@ -173,45 +186,74 @@ function validateWithJS() {
     const message = document.getElementById('contactMessage').value.trim();
     const preference = document.querySelector('input[name="contactPreference"]:checked');
     const kvkk = document.getElementById('kvkkConsent').checked;
+    const website = document.getElementById('contactWebsite').value.trim();
+    const budget = document.getElementById('contactBudget').value;
+    const fileInput = document.getElementById('contactFile');
 
+    // Ad Soyad - boş ve minimum uzunluk kontrolü
     if (!name || name.length < 3) { showError('nameError', 'Ad Soyad en az 3 karakter olmalıdır.'); setInvalid('contactName'); valid = false; }
     else setValid('contactName');
 
+    // E-posta - boş ve format kontrolü
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) { showError('contactEmailError', 'E-posta boş bırakılamaz.'); setInvalid('contactEmail'); valid = false; }
-    else if (!emailRegex.test(email)) { showError('contactEmailError', 'Geçerli bir e-posta giriniz.'); setInvalid('contactEmail'); valid = false; }
+    else if (!emailRegex.test(email)) { showError('contactEmailError', 'Geçerli bir e-posta giriniz. (örn: ad@domain.com)'); setInvalid('contactEmail'); valid = false; }
     else setValid('contactEmail');
 
-    const phoneRegex = /^(05\d{9}|\+90\s?\d{3}\s?\d{3}\s?\d{2}\s?\d{2})$/;
+    // Telefon - boş, sadece rakam ve format kontrolü
+    const phoneDigits = phone.replace(/[\s+]/g, '');
+    const phoneRegex = /^(05\d{9}|90\d{10})$/;
     if (!phone) { showError('phoneError', 'Telefon boş bırakılamaz.'); setInvalid('contactPhone'); valid = false; }
-    else if (!phoneRegex.test(phone.replace(/\s/g, ''))) { showError('phoneError', 'Format: 05XX XXX XX XX'); setInvalid('contactPhone'); valid = false; }
+    else if (!/^[\d+\s]+$/.test(phone)) { showError('phoneError', 'Telefon sadece rakam içermelidir.'); setInvalid('contactPhone'); valid = false; }
+    else if (!phoneRegex.test(phoneDigits)) { showError('phoneError', 'Format: 05XX XXX XX XX'); setInvalid('contactPhone'); valid = false; }
     else setValid('contactPhone');
 
+    // Konu - seçim kontrolü
     if (!subject) { showError('subjectError', 'Konu seçiniz.'); setInvalid('contactSubject'); valid = false; }
     else setValid('contactSubject');
 
+    // Website - opsiyonel ama girildiyse URL formatı kontrolü
+    if (website) {
+        const urlRegex = /^https?:\/\/.+\..+/;
+        if (!urlRegex.test(website)) { showError('websiteError', 'Geçerli bir URL giriniz. (https://...)'); setInvalid('contactWebsite'); valid = false; }
+        else setValid('contactWebsite');
+    }
+
+    // İletişim tercihi - radio seçim kontrolü
     if (!preference) { showError('preferenceError', 'İletişim tercihi seçiniz.'); valid = false; }
 
+    // Mesaj - boş, min/max uzunluk kontrolü
     if (!message || message.length < 10) { showError('messageError', 'Mesaj en az 10 karakter olmalıdır.'); setInvalid('contactMessage'); valid = false; }
     else if (message.length > 500) { showError('messageError', 'Mesaj en fazla 500 karakter olabilir.'); setInvalid('contactMessage'); valid = false; }
     else setValid('contactMessage');
 
-    if (!kvkk) { showError('kvkkError', 'KVKK onayı gereklidir.'); valid = false; }
+    // Bütçe - opsiyonel ama girildiyse sayı ve pozitif kontrolü
+    if (budget && (isNaN(budget) || Number(budget) < 0)) { showError('budgetError', 'Geçerli bir bütçe giriniz (pozitif sayı).'); setInvalid('contactBudget'); valid = false; }
 
-    const budget = document.getElementById('contactBudget').value;
-    if (budget && (isNaN(budget) || Number(budget) < 0)) { showError('budgetError', 'Geçerli bir bütçe giriniz.'); setInvalid('contactBudget'); valid = false; }
+    // Dosya - opsiyonel ama seçildiyse boyut kontrolü (max 5MB)
+    if (fileInput && fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const maxSize = 5 * 1024 * 1024;
+        const allowedTypes = ['application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','image/jpeg','image/png'];
+        if (file.size > maxSize) { showError('fileError', 'Dosya boyutu 5MB\'den küçük olmalıdır.'); valid = false; }
+        else if (!allowedTypes.includes(file.type)) { showError('fileError', 'Sadece PDF, DOC, JPG, PNG dosyaları kabul edilir.'); valid = false; }
+    }
+
+    // KVKK - checkbox zorunlu onay kontrolü
+    if (!kvkk) { showError('kvkkError', 'KVKK onayı gereklidir.'); valid = false; }
 
     const resultDiv = document.getElementById('validationResult');
     if (valid) {
         resultDiv.className = 'validation-result success';
         resultDiv.style.display = 'block';
-        resultDiv.innerHTML = '<h4 style="color:var(--success)"><i class="fas fa-check-circle"></i> JavaScript Doğrulama Başarılı!</h4><p>Form verileri geçerli. Sunucuya gönderiliyor...</p>';
+        resultDiv.innerHTML = '<h4 style="color:var(--success)"><i class="fas fa-check-circle"></i> JavaScript Doğrulama Başarılı!</h4><p>Tüm form verileri saf JavaScript ile doğrulandı. Sunucuya gönderiliyor...</p>';
         submitToServer();
     } else {
         resultDiv.className = 'validation-result error';
         resultDiv.style.display = 'block';
         resultDiv.innerHTML = '<h4 style="color:var(--danger)"><i class="fas fa-times-circle"></i> JavaScript Doğrulama Hatası</h4><p>Lütfen işaretli alanları düzeltiniz.</p>';
     }
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 /* Validator.js Framework Validation */
@@ -229,47 +271,80 @@ function validateWithFramework() {
     const message = document.getElementById('contactMessage').value.trim();
     const preference = document.querySelector('input[name="contactPreference"]:checked');
     const kvkk = document.getElementById('kvkkConsent').checked;
+    const website = document.getElementById('contactWebsite').value.trim();
+    const budget = document.getElementById('contactBudget').value;
+    const fileInput = document.getElementById('contactFile');
 
+    // Ad Soyad - validator.isEmpty ve isLength ile kontrol
     if (validator.isEmpty(name) || !validator.isLength(name, { min: 3 })) {
         showError('nameError', 'Ad Soyad en az 3 karakter olmalıdır.'); setInvalid('contactName'); valid = false;
     } else setValid('contactName');
 
-    if (validator.isEmpty(email) || !validator.isEmail(email)) {
-        showError('contactEmailError', 'Geçerli bir e-posta giriniz.'); setInvalid('contactEmail'); valid = false;
+    // E-posta - validator.isEmail ile format kontrolü
+    if (validator.isEmpty(email)) {
+        showError('contactEmailError', 'E-posta boş bırakılamaz.'); setInvalid('contactEmail'); valid = false;
+    } else if (!validator.isEmail(email)) {
+        showError('contactEmailError', 'Geçerli bir e-posta formatı giriniz.'); setInvalid('contactEmail'); valid = false;
     } else setValid('contactEmail');
 
-    if (validator.isEmpty(phone) || !validator.isMobilePhone(phone, 'tr-TR')) {
+    // Telefon - sadece rakam ve TR mobil telefon kontrolü
+    if (validator.isEmpty(phone)) {
+        showError('phoneError', 'Telefon boş bırakılamaz.'); setInvalid('contactPhone'); valid = false;
+    } else if (!validator.isNumeric(phone.replace(/[\s+]/g, ''))) {
+        showError('phoneError', 'Telefon sadece rakam içermelidir.'); setInvalid('contactPhone'); valid = false;
+    } else if (!validator.isMobilePhone(phone, 'tr-TR')) {
         showError('phoneError', 'Geçerli bir TR telefon numarası giriniz.'); setInvalid('contactPhone'); valid = false;
     } else setValid('contactPhone');
 
+    // Konu - seçim kontrolü
     if (validator.isEmpty(subject)) {
         showError('subjectError', 'Konu seçiniz.'); setInvalid('contactSubject'); valid = false;
     } else setValid('contactSubject');
 
+    // Website - opsiyonel ama girildiyse validator.isURL ile kontrol
+    if (website && !validator.isURL(website, { protocols: ['http','https'], require_protocol: true })) {
+        showError('websiteError', 'Geçerli bir URL giriniz. (https://...)'); setInvalid('contactWebsite'); valid = false;
+    } else if (website) setValid('contactWebsite');
+
+    // İletişim tercihi - radio seçim kontrolü
     if (!preference) { showError('preferenceError', 'İletişim tercihi seçiniz.'); valid = false; }
 
-    if (validator.isEmpty(message) || !validator.isLength(message, { min: 10, max: 500 })) {
+    // Mesaj - validator.isLength ile min/max kontrolü
+    if (validator.isEmpty(message)) {
+        showError('messageError', 'Mesaj boş bırakılamaz.'); setInvalid('contactMessage'); valid = false;
+    } else if (!validator.isLength(message, { min: 10, max: 500 })) {
         showError('messageError', 'Mesaj 10-500 karakter arasında olmalıdır.'); setInvalid('contactMessage'); valid = false;
     } else setValid('contactMessage');
 
-    if (!kvkk) { showError('kvkkError', 'KVKK onayı gereklidir.'); valid = false; }
-
-    const budget = document.getElementById('contactBudget').value;
+    // Bütçe - opsiyonel ama girildiyse sayısal kontrol
     if (budget && !validator.isNumeric(budget)) {
         showError('budgetError', 'Geçerli bir sayı giriniz.'); setInvalid('contactBudget'); valid = false;
+    } else if (budget && validator.isNumeric(budget) && Number(budget) < 0) {
+        showError('budgetError', 'Bütçe negatif olamaz.'); setInvalid('contactBudget'); valid = false;
     }
+
+    // Dosya - opsiyonel ama seçildiyse boyut kontrolü
+    if (fileInput && fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const maxSize = 5 * 1024 * 1024;
+        if (file.size > maxSize) { showError('fileError', 'Dosya boyutu 5MB\'den küçük olmalıdır.'); valid = false; }
+    }
+
+    // KVKK - checkbox zorunlu onay kontrolü
+    if (!kvkk) { showError('kvkkError', 'KVKK onayı gereklidir.'); valid = false; }
 
     const resultDiv = document.getElementById('validationResult');
     if (valid) {
         resultDiv.className = 'validation-result success';
         resultDiv.style.display = 'block';
-        resultDiv.innerHTML = '<h4 style="color:var(--success)"><i class="fas fa-check-circle"></i> Validator.js Doğrulama Başarılı!</h4><p>Form verileri geçerli. Sunucuya gönderiliyor...</p>';
+        resultDiv.innerHTML = '<h4 style="color:var(--success)"><i class="fas fa-check-circle"></i> Validator.js Doğrulama Başarılı!</h4><p>Tüm form verileri Validator.js kütüphanesi ile doğrulandı. Sunucuya gönderiliyor...</p>';
         submitToServer();
     } else {
         resultDiv.className = 'validation-result error';
         resultDiv.style.display = 'block';
         resultDiv.innerHTML = '<h4 style="color:var(--danger)"><i class="fas fa-times-circle"></i> Validator.js Doğrulama Hatası</h4><p>Lütfen işaretli alanları düzeltiniz.</p>';
     }
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 function submitToServer() {
@@ -297,6 +372,8 @@ function submitToServer() {
 }
 
 function resetForm() {
+    const form = document.getElementById('contactForm');
+    if (form) form.reset();
     clearErrors();
     const resultDiv = document.getElementById('validationResult');
     if (resultDiv) { resultDiv.style.display = 'none'; resultDiv.innerHTML = ''; }
@@ -304,6 +381,8 @@ function resetForm() {
     if (counter) counter.textContent = '0';
     const urgency = document.getElementById('urgencyValue');
     if (urgency) urgency.textContent = '5';
+    const colorVal = document.getElementById('colorValue');
+    if (colorVal) colorVal.textContent = '#6366f1';
 }
 
 /* ========== MOVIES API ========== */
