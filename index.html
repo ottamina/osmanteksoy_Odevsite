@@ -129,14 +129,39 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Galeri</span>
-                <h2 class="section-title">Resimler</h2>
+                
                 <div class="section-divider"></div>
             </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div>
-                    <img src="assets/buhayat insanazor.jpg" alt="fotom" class="img-fluid">
+            <div class="city-slider" id="citySlider">
+                <div class="slider-container">
+                    <div class="slider-track" id="sliderTrack">
+                        <div class="slider-slide active">
+                            <div class="slide-content">
+                                <div class="slide-overlay">
+                                    <img style="height: 50%; width: 50%;" src="assets/fotom1.jpeg" alt="Resim 1" class="slide-image">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="slider-slide">
+                            <div class="slide-content">
+                                <div class="slide-overlay">
+                                    <img style="height: 50%; width: 50%; " src="assets/fotom2.jpeg" alt="Resim 2" class="slide-image">
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+                <div class="slider-controls">
+                    <button class="slider-btn slider-prev" id="sliderPrev" aria-label="Önceki">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="slider-dots" id="sliderDots">
+                        <span class="slider-dot active" data-index="0"></span>
+                        <span class="slider-dot" data-index="1"></span>
+                    </div>
+                    <button class="slider-btn slider-next" id="sliderNext" aria-label="Sonraki">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -146,7 +171,7 @@
         <div class="container">
             <div class="section-header">
                 <span class="section-tag">Bağlantılar</span>
-                <h2 class="section-title">Faydalı Bağlantılar</h2>
+                
                 <div class="section-divider"></div>
             </div>
             <div class="row g-4 justify-content-center">
@@ -195,6 +220,7 @@
         document.addEventListener('DOMContentLoaded', function () {
             checkLoginStatus();
             initNavbar();
+            initSlider();
         });
     </script>
 </body>
