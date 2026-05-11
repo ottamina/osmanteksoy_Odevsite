@@ -1,18 +1,4 @@
-/* ===== GENEL ===== */
-:root {
-  --primary: #4a6cf7;
-  --primary-dark: #3b5de7;
-  --bg-dark: #1a1a2e;
-  --bg-card: #16213e;
-  --bg-card2: #1a1a3e;
-  --text: #e0e0e0;
-  --text-muted: #a0a0b0;
-  --success: #22c55e;
-  --danger: #ef4444;
-  --warning: #f59e0b;
-  --radius: 8px;
-}
-
+/* ===== GENEL (Sadeleştirilmiş Beyaz Tema) ===== */
 * {
   margin: 0;
   padding: 0;
@@ -21,320 +7,481 @@
 
 body {
   font-family: "Inter", sans-serif;
-  background: var(--bg-dark);
-  color: var(--text);
+  background: #f9fafb;
+  color: #333;
   line-height: 1.6;
 }
 
 a {
-  color: var(--primary);
+  color: #0d6efd;
   text-decoration: none;
 }
 
-a:hover {
-  color: #7b93f7;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+p {
+  color: #555;
+  margin-bottom: 12px;
+}
+
+ul {
+  margin-bottom: 12px;
 }
 
 /* ===== NAVBAR ===== */
 .navbar {
-  background: rgba(26, 26, 46, 0.95) !important;
-  padding: 10px 0;
-}
-
-.navbar.scrolled {
-  padding: 5px 0;
+  background: #ffffff !important;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 12px 0;
 }
 
 .navbar-brand {
-  font-weight: 700;
-  font-size: 1.3rem;
-  color: #fff !important;
+  font-weight: 800;
+  color: #111 !important;
 }
 
 .navbar-brand i {
-  color: var(--primary);
+  color: #0d6efd;
   margin-right: 6px;
 }
 
 .nav-link {
-  color: var(--text-muted) !important;
+  color: #4b5563 !important;
+  font-size: 0.95rem;
   font-weight: 500;
-  padding: 8px 12px !important;
-  border-radius: 6px;
-  font-size: 0.9rem;
 }
 
 .nav-link:hover,
 .nav-link.active {
-  color: #fff !important;
-  background: rgba(74, 108, 247, 0.15);
-}
-
-.nav-link i {
-  margin-right: 4px;
+  color: #0d6efd !important;
 }
 
 .nav-user-info {
-  color: var(--primary);
+  color: #0d6efd;
   font-size: 0.85rem;
   font-weight: 600;
 }
 
-/* ===== SECTIONS ===== */
+/* ===== ORTAK LAYOUT ===== */
 .section-padding {
   padding: 60px 0;
 }
 
-.section-alt {
-  background: var(--bg-card);
-}
-
-.section-header {
+.section-header,
+.page-header,
+.login-header {
   text-align: center;
   margin-bottom: 40px;
 }
 
-.section-tag {
-  display: inline-block;
-  background: rgba(74, 108, 247, 0.1);
-  color: var(--primary);
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-  border: 1px solid rgba(74, 108, 247, 0.15);
-}
-
-.section-title {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.section-divider {
-  width: 50px;
-  height: 3px;
-  background: var(--primary);
-  margin: 0 auto;
-  border-radius: 2px;
-}
-
-/* ===== PAGE HEADERS ===== */
 .page-header {
-  padding: 120px 0 50px;
-  text-align: center;
+  padding-top: 120px;
+  padding-bottom: 20px;
 }
 
-.page-header h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.page-header h1 i {
-  color: var(--primary);
-}
-
-.page-header p {
-  color: var(--text-muted);
-  font-size: 1rem;
-}
-
-/* ===== CARDS ===== */
-.info-card,
-.activity-card,
-.fan-card {
-  background: var(--bg-card);
-  border: 1px solid rgba(74, 108, 247, 0.1);
-  border-radius: var(--radius);
-  padding: 24px;
-  text-align: center;
-  height: 100%;
-}
-
-.info-card:hover,
-.activity-card:hover,
-.fan-card:hover {
-  border-color: var(--primary);
-}
-
-.info-card-icon,
-.activity-icon,
-.fan-icon {
-  width: 50px;
-  height: 50px;
-  background: var(--primary);
-  border-radius: 10px;
+.hero-section {
+  min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 0 auto 14px;
-  font-size: 1.2rem;
-  color: #fff;
+  padding-top: 80px;
 }
 
-.info-card h3,
-.activity-card h4,
-.fan-card h4 {
-  font-size: 1.05rem;
-  font-weight: 700;
-  margin-bottom: 6px;
+.hero-title {
+  font-size: 2.8rem;
+  color: #111;
+  margin-bottom: 15px;
 }
 
-.info-card p,
-.activity-card p,
-.fan-card p {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  margin: 0;
+/* ===== ORTAK KARTLAR (Tüm sayfalar için tek sınıf) ===== */
+.info-card,
+.activity-card,
+.fan-card,
+.link-card,
+.stat-card,
+.place-card,
+.language-card,
+.cv-section,
+.cv-header,
+.contact-info-wrapper,
+.contact-form-wrapper,
+.team-badge-inner,
+.movie-card,
+.login-card,
+.api-search-bar {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 24px;
+  height: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+/* Kart içindeki özel durumlar */
+.movie-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.movie-info {
+  padding: 15px;
+}
+
+.movie-poster {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  background: #f3f4f6;
 }
 
 .link-card {
   display: block;
-  background: var(--bg-card);
-  border: 1px solid rgba(74, 108, 247, 0.1);
-  border-radius: var(--radius);
-  padding: 24px;
   text-align: center;
-  color: var(--text);
+  transition: all 0.2s;
 }
 
 .link-card:hover {
-  border-color: var(--primary);
-  color: #fff;
+  border-color: #000000;
+  background: #aaaaaa;
 }
 
-.link-card i {
-  font-size: 2rem;
-  color: var(--primary);
-  margin-bottom: 10px;
+.stat-card,
+.place-card,
+.info-card,
+.activity-card,
+.fan-card,
+.language-card {
+  text-align: center;
 }
 
-.link-card h4 {
-  font-size: 1rem;
-  margin-bottom: 4px;
-}
-
-.link-card p {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-  margin: 0;
-}
-
-/* ===== BUTTONS ===== */
-.btn-primary-custom {
-  display: inline-flex;
+/* ===== ORTAK İKONLAR ===== */
+.info-card-icon,
+.activity-icon,
+.fan-icon,
+.place-icon,
+.contact-icon,
+.cv-avatar,
+.login-icon {
+  display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 10px 24px;
-  background: var(--primary);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 0.95rem;
+  justify-content: center;
+  background: #eff6ff;
+  color: #0d6efd;
+  margin: 0 auto 15px;
 }
 
-.btn-primary-custom:hover {
-  background: var(--primary-dark);
-  color: #fff;
+.cv-avatar,
+.login-icon {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  font-size: 1.8rem;
 }
 
-.btn-outline-custom {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 24px;
-  background: transparent;
-  color: var(--primary);
-  border: 1px solid rgba(74, 108, 247, 0.3);
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 0.95rem;
+.info-card-icon,
+.activity-icon,
+.fan-icon,
+.place-icon,
+.contact-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  font-size: 1.2rem;
 }
 
-.btn-outline-custom:hover {
-  background: rgba(74, 108, 247, 0.1);
-  color: #fff;
-  border-color: var(--primary);
-}
-
-/* ===== FORM ===== */
-.error-message {
-  color: var(--danger);
-  font-size: 0.8rem;
-  margin-top: 4px;
-  min-height: 18px;
-}
-
+/* ===== FORMLAR VE BUTONLAR ===== */
 .form-control,
 .form-select {
-  background: var(--bg-card2) !important;
-  border: 1px solid rgba(74, 108, 247, 0.15);
-  color: var(--text) !important;
-  border-radius: 6px;
+  background: #fff !important;
+  border: 1px solid #d1d5db;
+  color: #111 !important;
+  padding: 10px 15px;
 }
 
 .form-control:focus,
 .form-select:focus {
-  border-color: var(--primary);
-  box-shadow: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
 }
 
-.form-check-input {
-  background-color: var(--bg-card2);
-  border-color: rgba(74, 108, 247, 0.3);
+.btn-primary-custom,
+.btn-outline-custom,
+.btn-login,
+.btn-reset {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
 }
 
-.form-check-input:checked {
-  background-color: var(--primary);
-  border-color: var(--primary);
+.btn-primary-custom,
+.btn-login {
+  background: #0d6efd;
+  color: #fff;
+  width: 100%;
 }
 
-.form-check-label {
-  color: var(--text-muted);
+.btn-outline-custom {
+  background: transparent;
+  border: 1px solid #0d6efd;
+  color: #0d6efd;
+}
+
+.btn-reset {
+  background: transparent;
+  border: 1px solid #dc3545;
+  color: #dc3545;
+}
+
+.error-message {
+  color: #dc3545;
   font-size: 0.85rem;
+  margin-top: 5px;
+  min-height: 20px;
 }
 
-/* ===== FOOTER ===== */
+/* Input İkonları */
+.input-group-custom {
+  position: relative;
+}
+
+.input-group-custom i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6b7280;
+}
+
+.input-group-custom .form-control {
+  padding-left: 45px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+}
+
+/* ===== SPESİFİK BİLEŞENLER ===== */
+/* Özgeçmiş (CV) */
+.cv-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cv-item {
+  border-bottom: 1px solid #f3f4f6;
+  padding: 15px 0;
+}
+
+.cv-item:last-child {
+  border: none;
+  padding-bottom: 0;
+}
+
+.cv-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cv-date {
+  color: #0d6efd;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.cv-contact-row {
+  display: flex;
+  gap: 15px;
+  color: #4b5563;
+  font-size: 0.9rem;
+  justify-content: center;
+}
+
+/* Takım/Miras Timeline */
+.timeline {
+  border-left: 2px solid #e5e7eb;
+  padding-left: 20px;
+  margin-left: 10px;
+}
+
+.timeline-item {
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: #0d6efd;
+  border-radius: 50%;
+}
+
+/* Diller & Yetenekler */
+.language-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #e5e7eb;
+}
+
+.dot.filled {
+  background: #0d6efd;
+}
+
+/* Filmler (API) */
+.movie-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin-top: 10px;
+}
+
+.movie-rating {
+  color: #f59e0b;
+  font-weight: 700;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #f3f4f6;
+  border-top: 3px solid #0d6efd;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.movie-modal-content {
+  background: #fff !important;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  color: #111;
+}
+
+/* Slider (Şehir Sayfası) */
+.slider-slide {
+  display: none;
+}
+
+.slider-slide.active {
+  display: block;
+}
+
+.slider-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.slider-dot {
+  width: 10px;
+  height: 10px;
+  background: #d1d5db;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.slider-dot.active {
+  background: #0d6efd;
+}
+
+.slider-btn {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #4b5563;
+}
+
+.slider-btn:hover {
+  background: #f3f4f6;
+}
+
+/* İletişim Footer ve Çeşitli */
+.contact-info-item {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.contact-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.contact-social a {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f3f4f6;
+  border-radius: 8px;
+  color: #4b5563;
+}
+
 .site-footer {
-  background: var(--bg-card);
-  border-top: 1px solid rgba(74, 108, 247, 0.1);
-  padding: 16px 0;
-  margin-top: 30px;
+  background: #ffffff;
+  border-top: 1px solid #e5e7eb;
+  padding: 24px 0;
+  text-align: center;
+  margin-top: 50px;
 }
 
 .site-footer p {
   margin: 0;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2rem;
-  }
-
-  .section-title {
-    font-size: 1.4rem;
-  }
-
-  .page-header h1 {
-    font-size: 1.6rem;
-  }
-
-  .form-buttons {
-    flex-direction: column;
-  }
-
-  .btn-primary-custom,
-  .btn-outline-custom,
-  .btn-reset {
-    width: 100%;
-    justify-content: center;
-  }
+  color: #6b7280;
+  font-size: 0.9rem;
 }
