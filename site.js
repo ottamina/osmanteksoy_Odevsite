@@ -466,9 +466,10 @@ function fetchMovies(url, append = false) {
                 loadMore.style.display = 'none';
             }
         })
-        .catch(() => {
+        .catch((error) => {
+            console.error("Fetch hatası:", error);
             spinner.style.display = 'none';
-            if (!append) grid.innerHTML = '<div class="col-12 text-center py-5"><p style="color:var(--danger)">API bağlantı hatası.</p></div>';
+            if (!append) grid.innerHTML = '<div class="col-12 text-center py-5"><p style="color:var(--danger)">API bağlantı hatası. (Tarayıcı konsolunu kontrol edin. TMDB Türkiye\'de bazı servis sağlayıcılar tarafından engellenmektedir. VPN ile deneyebilirsiniz.)</p></div>';
         });
 }
 
