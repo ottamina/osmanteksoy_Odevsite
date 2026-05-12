@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -28,22 +28,22 @@
             </div>
 
             <form id="loginForm" action="login.php" method="POST" novalidate>
-                <div class="form-floating-custom">
+                <div class="mb-3 text-start">
+                    <label for="loginEmail" class="form-label text-muted small mb-1 fw-bold">Öğrenci E-posta</label>
                     <div class="input-group-custom">
                         <i class="fas fa-envelope"></i>
                         <input type="email" id="loginEmail" name="email" class="form-control" 
-                               placeholder="b2412100001@sakarya.edu.tr" required>
-                        <label for="loginEmail">Öğrenci E-posta</label>
+                               placeholder="b2412100001@ogr.sakarya.edu.tr" required>
                     </div>
                     <div class="error-message" id="emailError"></div>
                 </div>
 
-                <div class="form-floating-custom">
+                <div class="mb-3 text-start">
+                    <label for="loginPassword" class="form-label text-muted small mb-1 fw-bold">Şifre (Öğrenci No)</label>
                     <div class="input-group-custom">
                         <i class="fas fa-lock"></i>
                         <input type="password" id="loginPassword" name="password" class="form-control" 
                                placeholder="Şifre" required>
-                        <label for="loginPassword">Şifre (Öğrenci No)</label>
                         <button type="button" class="password-toggle" id="togglePassword">
                             <i class="fas fa-eye"></i>
                         </button>

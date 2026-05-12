@@ -29,22 +29,18 @@ function initLogin() {
             const studentNo = email.split('@')[0];
             if (password !== studentNo) { passErr.textContent = 'Şifre öğrenci numaranız olmalıdır.'; return; }
 
-            // Try PHP first, fallback to localStorage
+            // Sadece göstermelik login işlemi
             const formData = new FormData(form);
             fetch('login.php', { method: 'POST', body: formData })
                 .then(r => r.json())
                 .then(data => {
                     if (data.success) {
-                        localStorage.setItem('loggedIn', 'true');
-                        localStorage.setItem('studentNo', studentNo);
-                        alert(data.message);
+                        alert(data.message + " (Sadece Gösterim)");
                         window.location.href = 'index.html';
                     } else { passErr.textContent = data.message; }
                 })
                 .catch(() => {
-                    localStorage.setItem('loggedIn', 'true');
-                    localStorage.setItem('studentNo', studentNo);
-                    alert('Hoşgeldiniz [' + studentNo + ']');
+                    alert(`Hoşgeldiniz [${studentNo}] - Giriş Başarılı`);
                     window.location.href = 'index.html';
                 });
         });
@@ -52,25 +48,11 @@ function initLogin() {
 }
 
 function checkLoginStatus() {
-    const loggedIn = localStorage.getItem('loggedIn');
-    const studentNo = localStorage.getItem('studentNo');
-    if (!loggedIn && !window.location.pathname.includes('login.html')) {
-        // Optional: redirect to login
-        // window.location.href = 'login.html';
-    }
-    const navInfo = document.getElementById('navUserInfo');
-    if (navInfo && studentNo) {
-        navInfo.innerHTML = '<i class="fas fa-user-circle"></i> ' + studentNo +
-            ' <a href="#" onclick="logout()" style="margin-left:8px;color:#ef4444;font-size:.8rem;"><i class="fas fa-sign-out-alt"></i></a>';
-    }
+    // Sadece hocaya göstermelik olduğu için navbar değişimi ve çıkış butonu kaldırıldı.
 }
-function logout() { localStorage.removeItem('loggedIn'); localStorage.removeItem('studentNo'); window.location.href = 'login.html'; }
+// Çıkış yapma fonksiyonu isteğe bağlı kaldırıldı
 
 
-/* ========== LOGIN STATUS ========== */
-function checkLoginStatus() {
-    // Placeholder so pages that call this function do not fail.
-}
 
 /* ========== NAVBAR ========== */
 function initNavbar() {
@@ -446,18 +428,20 @@ function fetchMovies(url, append = false) {
                     const col = document.createElement('div');
                     col.className = 'col-6 col-md-4 col-lg-3';
                     const poster = m.poster_path ? TMDB_IMG + m.poster_path : '';
-                    const posterBg = poster ? 'background-image:url(' + poster + ');background-size:cover;background-position:center;' : 'background:var(--bg-card2);display:flex;align-items:center;justify-content:center;';
-                    col.innerHTML =
-                        '<div class="movie-card" onclick="showMovieDetail(' + m.id + ')">' +
-                        '<div class="movie-poster" style="' + posterBg + '">' +
-                        (!poster ? '<i class="fas fa-film" style="font-size:3rem;color:var(--text-muted)"></i>' : '') +
-                        '</div>' +
-                        '<div class="movie-info">' +
-                        '<div class="movie-title">' + (m.title || 'Bilinmiyor') + '</div>' +
-                        '<div class="movie-meta">' +
-                        '<span>' + (m.release_date ? m.release_date.substring(0, 4) : '-') + '</span>' +
-                        '<span class="movie-rating"><i class="fas fa-star"></i> ' + (m.vote_average ? m.vote_average.toFixed(1) : '-') + '</span>' +
-                        '</div></div></div>';
+                    const posterBg = poster ? `background-image:url(${poster});background-size:cover;background-position:center;` : `background:var(--bg-card2);display:flex;align-items:center;justify-content:center;`;
+                    col.innerHTML = `
+                        <div class="movie-card" onclick="showMovieDetail(${m.id})">
+                            <div class="movie-poster" style="${posterBg}">
+                                ${!poster ? '<i class="fas fa-film" style="font-size:3rem;color:var(--text-muted)"></i>' : ''}
+                            </div>
+                            <div class="movie-info">
+                                <div class="movie-title">${m.title || 'Bilinmiyor'}</div>
+                                <div class="movie-meta">
+                                    <span>${m.release_date ? m.release_date.substring(0, 4) : '-'}</span>
+                                    <span class="movie-rating"><i class="fas fa-star"></i> ${m.vote_average ? m.vote_average.toFixed(1) : '-'}</span>
+                                </div>
+                            </div>
+                        </div>`;
                     grid.appendChild(col);
                 });
                 loadMore.style.display = data.page < data.total_pages ? 'block' : 'none';
@@ -481,16 +465,16 @@ function showMovieDetail(id) {
             const backdrop = m.backdrop_path ? TMDB_IMG + m.backdrop_path : '';
             const genres = m.genres ? m.genres.map(g => '<span class="badge bg-secondary me-1">' + g.name + '</span>').join('') : '';
             const cast = m.credits && m.credits.cast ? m.credits.cast.slice(0, 6).map(c => c.name).join(', ') : 'Bilinmiyor';
-            body.innerHTML =
-                (backdrop ? '<div style="height:250px;background:url(' + backdrop + ') center/cover;border-radius:16px 16px 0 0;position:relative;"><div style="position:absolute;inset:0;background:linear-gradient(transparent,var(--bg-card));border-radius:16px 16px 0 0;"></div></div>' : '') +
-                '<div style="padding:24px;">' +
-                '<h3 style="font-weight:800;">' + (m.title || '') + '</h3>' +
-                '<p style="color:var(--text-muted);font-size:.85rem;">' + (m.release_date || '') + ' | ' + (m.runtime || '?') + ' dk</p>' +
-                '<div class="mb-3">' + genres + '</div>' +
-                '<p style="color:var(--text-muted);font-size:.9rem;">' + (m.overview || 'Açıklama yok.') + '</p>' +
-                '<p style="font-size:.85rem;"><strong>Oyuncular:</strong> <span style="color:var(--text-muted)">' + cast + '</span></p>' +
-                '<p style="font-size:.85rem;"><strong>Puan:</strong> <span style="color:var(--warning)"><i class="fas fa-star"></i> ' + (m.vote_average ? m.vote_average.toFixed(1) : '-') + '</span> (' + (m.vote_count || 0) + ' oy)</p>' +
-                '</div>';
+            body.innerHTML = `
+                ${backdrop ? `<div style="height:250px;background:url(${backdrop}) center/cover;border-radius:16px 16px 0 0;position:relative;"><div style="position:absolute;inset:0;background:linear-gradient(transparent,var(--bg-card));border-radius:16px 16px 0 0;"></div></div>` : ''}
+                <div style="padding:24px;">
+                    <h3 style="font-weight:800;">${m.title || ''}</h3>
+                    <p style="color:var(--text-muted);font-size:.85rem;">${m.release_date || ''} | ${m.runtime || '?'} dk</p>
+                    <div class="mb-3">${genres}</div>
+                    <p style="color:var(--text-muted);font-size:.9rem;">${m.overview || 'Açıklama yok.'}</p>
+                    <p style="font-size:.85rem;"><strong>Oyuncular:</strong> <span style="color:var(--text-muted)">${cast}</span></p>
+                    <p style="font-size:.85rem;"><strong>Puan:</strong> <span style="color:var(--warning)"><i class="fas fa-star"></i> ${m.vote_average ? m.vote_average.toFixed(1) : '-'}</span> (${m.vote_count || 0} oy)</p>
+                </div>`;
             new bootstrap.Modal(document.getElementById('movieModal')).show();
         });
 }

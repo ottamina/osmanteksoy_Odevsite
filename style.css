@@ -162,7 +162,7 @@ ul {
   text-align: center;
 }
 
-/* ===== ORTAK İKONLAR ===== */
+/* ortak ikonlar */
 .info-card-icon,
 .activity-icon,
 .fan-icon,
@@ -212,6 +212,8 @@ ul {
   box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1);
 }
 
+
+
 .btn-primary-custom,
 .btn-outline-custom,
 .btn-login,
@@ -233,6 +235,9 @@ ul {
   color: #fff;
   width: 100%;
 }
+.btn-outline-light {
+  color: #6b7280;
+} 
 
 .btn-outline-custom {
   background: transparent;
