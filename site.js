@@ -29,13 +29,16 @@ function initLogin() {
             const studentNo = email.split('@')[0];
             if (password !== studentNo) { passErr.textContent = 'Şifre öğrenci numaranız olmalıdır.'; return; }
 
-            // Sadece göstermelik login işlemi
+            // Login başarılı - localStorage'a kaydet
+            localStorage.setItem('isLoggedIn', 'true');
+            localStorage.setItem('studentNo', studentNo);
+
             const formData = new FormData(form);
             fetch('login.php', { method: 'POST', body: formData })
                 .then(r => r.json())
                 .then(data => {
                     if (data.success) {
-                        alert(data.message + " (Sadece Gösterim)");
+                        alert(data.message);
                         window.location.href = 'index.html';
                     } else { passErr.textContent = data.message; }
                 })
@@ -48,9 +51,39 @@ function initLogin() {
 }
 
 function checkLoginStatus() {
-    // Sadece hocaya göstermelik olduğu için navbar değişimi ve çıkış butonu kaldırıldı.
+    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const studentNo = localStorage.getItem('studentNo');
+    const loginBtnContainer = document.getElementById('navLoginBtn');
+    const userInfoContainer = document.getElementById('navUserInfo');
+
+    if (!loginBtnContainer || !userInfoContainer) return;
+
+    if (isLoggedIn && studentNo) {
+        // Giriş yapılmış: login butonunu gizle, kullanıcı bilgisini göster
+        loginBtnContainer.style.display = 'none';
+        userInfoContainer.style.display = 'flex';
+        userInfoContainer.innerHTML = `
+            <span class="nav-student-badge">
+                <i class="fas fa-user-graduate"></i> ${studentNo}
+            </span>
+            <button onclick="logout()" class="btn btn-outline-light btn-sm ms-2">
+                <i class="fas fa-sign-out-alt"></i> Çıkış
+            </button>
+        `;
+    } else {
+        // Giriş yapılmamış: login butonunu göster
+        loginBtnContainer.style.display = 'flex';
+        userInfoContainer.style.display = 'none';
+        userInfoContainer.innerHTML = '';
+    }
 }
-// Çıkış yapma fonksiyonu isteğe bağlı kaldırıldı
+
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('studentNo');
+    alert('Çıkış yapıldı.');
+    window.location.reload();
+}
 
 
 

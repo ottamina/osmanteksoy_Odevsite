@@ -69,6 +69,40 @@ ul {
   color: #0d6efd;
   font-size: 0.85rem;
   font-weight: 600;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-student-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #eff6ff;
+  color: #0d6efd;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #bfdbfe;
+  white-space: nowrap;
+}
+
+.nav-student-badge i {
+  font-size: 0.9rem;
+}
+
+.nav-user-info .btn-outline-light {
+  color: #dc3545 !important;
+  border-color: #dc3545 !important;
+  font-size: 0.8rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+
+.nav-user-info .btn-outline-light:hover {
+  background: #dc3545 !important;
+  color: #fff !important;
 }
 
 /* ===== ORTAK LAYOUT ===== */
@@ -451,6 +485,72 @@ ul {
 
 .slider-btn:hover {
   background: #f3f4f6;
+}
+
+/* Tıklanabilir Slider Linkleri */
+.slide-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  cursor: pointer;
+}
+
+.slide-link:hover {
+  color: inherit;
+}
+
+.slide-link:hover .slide-image {
+  transform: scale(1.03);
+  transition: transform 0.3s ease;
+}
+
+.slide-more-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: #0d6efd;
+  font-size: 0.85rem;
+  font-weight: 600;
+  border: 1px solid #0d6efd;
+  padding: 4px 14px;
+  border-radius: 20px;
+  transition: all 0.2s;
+}
+
+.slide-link:hover .slide-more-link {
+  background: #0d6efd;
+  color: #fff;
+}
+
+/* Tıklanabilir Yer Kartları */
+.place-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
+.place-card-link:hover {
+  color: inherit;
+}
+
+.place-card-link:hover .place-card {
+  border-color: #0d6efd;
+  box-shadow: 0 4px 12px rgba(13, 110, 253, 0.1);
+  transform: translateY(-3px);
+  transition: all 0.2s ease;
+}
+
+.place-more-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #0d6efd;
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.place-card-link:hover .place-more-link {
+  text-decoration: underline;
 }
 
 /* İletişim Footer ve Çeşitli */

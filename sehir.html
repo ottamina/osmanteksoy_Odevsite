@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 
 <head>
@@ -38,10 +38,10 @@
                     <li class="nav-item"><a class="nav-link" href="iletisim.html"><i class="fas fa-envelope"></i>
                             İletişim</a></li>
                 </ul>
-                <div class="d-flex align-items-center ms-lg-3 mt-3 mt-lg-0">
+                <div class="d-flex align-items-center ms-lg-3 mt-3 mt-lg-0" id="navLoginBtn">
                     <a href="login.html" class="btn btn-outline-light"><i class="fas fa-sign-in-alt"></i> Giriş Yap</a>
                 </div>
-                <div class="nav-user-info ms-3" id="navUserInfo"></div>
+                <div class="d-flex align-items-center ms-lg-3 mt-3 mt-lg-0 nav-user-info" id="navUserInfo" style="display:none;"></div>
             </div>
         </div>
     </nav>
@@ -123,42 +123,54 @@
                         <div class="slider-track" id="sliderTrack">
                             <div class="slider-slide active">
                                 <div class="slide-content">
-                                    <div class="slide-overlay">
-                                        <img style="height: 50%; width: 50%;" src="assets/ayder.jpg" alt="Ayder Yaylası" class="slide-image">
-                                        <h3>Ayder Yaylası</h3>
-                                        <p>Karadeniz'in en ünlü yaylalarından biri olan Ayder, ahşap evleri, kaplıcaları
-                                            ve yemyeşil doğasıyla tanınır.</p>
-                                    </div>
+                                    <a href="https://tr.wikipedia.org/wiki/Ayder" target="_blank" class="slide-link">
+                                        <div class="slide-overlay">
+                                            <img style="height: 50%; width: 50%;" src="assets/ayder.jpg" alt="Ayder Yaylası" class="slide-image">
+                                            <h3>Ayder Yaylası</h3>
+                                            <p>Karadeniz'in en ünlü yaylalarından biri olan Ayder, ahşap evleri, kaplıcaları
+                                                ve yemyeşil doğasıyla tanınır.</p>
+                                            <span class="slide-more-link"><i class="fas fa-external-link-alt"></i> Daha Fazla Bilgi</span>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="slider-slide">
                                 <div class="slide-content">
-                                    <div class="slide-overlay">
-                                        <img style="height: 50%; width: 50%;"    src="assets/firtina.jpg" alt="Fırtına Vadisi" class="slide-image">
-                                        <h3>Fırtına Vadisi</h3>
-                                        <p>Rize'nin en etkileyici doğa rotalarından biri olan Fırtına Vadisi, nehirleri,
-                                            taş köprüleri ve trekking parkurlarıyla bilinir.</p>
-                                    </div>
+                                    <a href="https://tr.wikipedia.org/wiki/F%C4%B1rt%C4%B1na_Deresi" target="_blank" class="slide-link">
+                                        <div class="slide-overlay">
+                                            <img style="height: 50%; width: 50%;" src="assets/firtina.jpg" alt="Fırtına Vadisi" class="slide-image">
+                                            <h3>Fırtına Vadisi</h3>
+                                            <p>Rize'nin en etkileyici doğa rotalarından biri olan Fırtına Vadisi, nehirleri,
+                                                taş köprüleri ve trekking parkurlarıyla bilinir.</p>
+                                            <span class="slide-more-link"><i class="fas fa-external-link-alt"></i> Daha Fazla Bilgi</span>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="slider-slide">
                                 <div class="slide-content">
-                                    <div class="slide-overlay">
-                                        <img style="height: 50%; width: 50%;" src="assets/kalemerkez.jpg" alt="Rize Kalesi" class="slide-image">
-                                        <h3>Rize Kalesi</h3>
-                                        <p>Şehrin tarihî simgelerinden biri olan Rize Kalesi, Karadeniz kıyısında harika
-                                            manzaralar sunar.</p>
-                                    </div>
+                                    <a href="https://tr.wikipedia.org/wiki/Rize_Kalesi" target="_blank" class="slide-link">
+                                        <div class="slide-overlay">
+                                            <img style="height: 50%; width: 50%;" src="assets/kalemerkez.jpg" alt="Rize Kalesi" class="slide-image">
+                                            <h3>Rize Kalesi</h3>
+                                            <p>Şehrin tarihî simgelerinden biri olan Rize Kalesi, Karadeniz kıyısında harika
+                                                manzaralar sunar.</p>
+                                            <span class="slide-more-link"><i class="fas fa-external-link-alt"></i> Daha Fazla Bilgi</span>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="slider-slide">
                                 <div class="slide-content">
-                                    <div class="slide-overlay">
-                                        <img style="height: 50%; width: 50%;" src="assets/zilakle.jpg" alt="Zilkale" class="slide-image">
-                                        <h3>Zilkale</h3>
-                                        <p>Fırtına Vadisi'nin içinde yer alan Zilkale, tarihi kale kalıntıları ve
-                                            vadinin eşsiz manzarasıyla ziyaretçilerini bekler.</p>
-                                    </div>
+                                    <a href="https://tr.wikipedia.org/wiki/Zilkale" target="_blank" class="slide-link">
+                                        <div class="slide-overlay">
+                                            <img style="height: 50%; width: 50%;" src="assets/zilakle.jpg" alt="Zilkale" class="slide-image">
+                                            <h3>Zilkale</h3>
+                                            <p>Fırtına Vadisi'nin içinde yer alan Zilkale, tarihi kale kalıntıları ve
+                                                vadinin eşsiz manzarasıyla ziyaretçilerini bekler.</p>
+                                            <span class="slide-more-link"><i class="fas fa-external-link-alt"></i> Daha Fazla Bilgi</span>
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -192,44 +204,56 @@
 
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3">
-                    <div class="place-card">
-                        <div class="place-icon">
-                            <i class="fas fa-leaf"></i>
+                    <a href="https://tr.wikipedia.org/wiki/Rize_%C3%A7ay%C4%B1" target="_blank" class="place-card-link">
+                        <div class="place-card">
+                            <div class="place-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h4>Çay Bahçeleri</h4>
+                            <p>Rize'nin simgesi olan yemyeşil çay plantasyonları, doğa yürüyüşleri ve çay fabrikası
+                                ziyaretleri için ideal.</p>
+                            <span class="place-more-link"><i class="fas fa-external-link-alt"></i> Wikipedia</span>
                         </div>
-                        <h4>Çay Bahçeleri</h4>
-                        <p>Rize'nin simgesi olan yemyeşil çay plantasyonları, doğa yürüyüşleri ve çay fabrikası
-                            ziyaretleri için ideal.</p>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="place-card">
-                        <div class="place-icon" >
-                            <i class="fas fa-monument"></i>
+                    <a href="https://tr.wikipedia.org/wiki/Zilkale" target="_blank" class="place-card-link">
+                        <div class="place-card">
+                            <div class="place-icon">
+                                <i class="fas fa-monument"></i>
+                            </div>
+                            <h4>Zilkale</h4>
+                            <p>Fırtına Vadisi'nin içinde yer alan Zilkale, tarihi kale kalıntıları ve vadinin eşsiz
+                                manzarasıyla ziyaretçilerini bekler.</p>
+                            <span class="place-more-link"><i class="fas fa-external-link-alt"></i> Wikipedia</span>
                         </div>
-                        <h4>Zilkale</h4>
-                        <p>Fırtına Vadisi'nin içinde yer alan Zilkale, tarihi kale kalıntıları ve vadinin eşsiz
-                            manzarasıyla ziyaretçilerini bekler.</p>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="place-card">
-                        <div class="place-icon">
-                            <i class="fas fa-mountain"></i>
+                    <a href="https://tr.wikipedia.org/wiki/Ka%C3%A7kar_Da%C4%9Flar%C4%B1" target="_blank" class="place-card-link">
+                        <div class="place-card">
+                            <div class="place-icon">
+                                <i class="fas fa-mountain"></i>
+                            </div>
+                            <h4>Kaçkar Dağları</h4>
+                            <p>Doğa yürüyüşü ve dağcılık için mükemmel olan Kaçkar Dağları, Karadeniz'in en yüksek
+                                zirvelerini barındırır.</p>
+                            <span class="place-more-link"><i class="fas fa-external-link-alt"></i> Wikipedia</span>
                         </div>
-                        <h4>Kaçkar Dağları</h4>
-                        <p>Doğa yürüyüşü ve dağcılık için mükemmel olan Kaçkar Dağları, Karadeniz'in en yüksek
-                            zirvelerini barındırır.</p>
-                    </div>
+                    </a>
                 </div>
                 <div class="col-md-6 col-lg-3">
-                    <div class="place-card">
-                        <div class="place-icon"">
-                            <i class="fas fa-home"></i>
+                    <a href="https://tr.wikipedia.org/wiki/%C3%87aml%C4%B1hem%C5%9Fin" target="_blank" class="place-card-link">
+                        <div class="place-card">
+                            <div class="place-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <h4>Çamlıhemşin</h4>
+                            <p>Geleneksel ahşap evleri, şelaleleri ve yaylalarıyla ünlü olan bu köy, Karadeniz kültürünü
+                                yansıtır.</p>
+                            <span class="place-more-link"><i class="fas fa-external-link-alt"></i> Wikipedia</span>
                         </div>
-                        <h4>Çamlıhemşin</h4>
-                        <p>Geleneksel ahşap evleri, şelaleleri ve yaylalarıyla ünlü olan bu köy, Karadeniz kültürünü
-                            yansıtır.</p>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
